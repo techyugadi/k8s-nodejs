@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nodeapp
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nodeapp
+    spec:
+      containers:
+      - name: node
+        image: node
+        command: ["node"]
+        args: ["/usr/src/app/k8s-nodejs/car.js"]
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+          - name: appdir
+            mountPath: /usr/src/app
+      volumes:
+        - name: appdir
+          gitRepo:
+            repository: https://github.com/techyugadi/k8s-nodejs.git 

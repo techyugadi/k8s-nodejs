@@ -29,3 +29,11 @@ The service runs on port 6000
 The response should be like:  
 `3FADP4BJ5FM141037:{"make":"toyota","model":"highlander","year":2017}`  
 Exit the busybox pod.
+
+Alternatively, use the service spec with NodePort (`service.nodeport.yaml`).  
+The nodePort specified in this service spec is 30003.  
+In that case, the service can be accessed from any of the Kubernetes nodes.  
+Find the IP address of a Kubernetes node using the command:  
+`kubectl describe node <node_name>`  
+Then access the service using curl:  
+`curl http://NODE_IP_ADDRESS:30003/car/3FADP4BJ5FM141037`
